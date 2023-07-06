@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>App</title>
+</head>
+
+<body>
+    <div class="container">
+        <form class="formCompra" id="compras">
+            <div>
+                <label for="valorInput">
+                    Valor del producto:
+                </label>
+                <input id="valorInput" name="valor" placeholder="$123.000"/>
+                <span id="errorMensaje" style="color: red; display: none;">El valor debe ser un número positivo</span>
+            </div>
+
+            <div>
+                <label for="fechaVencimientoInput">
+                    Fecha de Vencimiento:
+                </label> 
+                <input id="fechaVencimientoInput" name="fecha_vencimiento" type="date" />
+                <span id="errorFecha" style="color: red; display: none;">Introduce una fecha mayor</span>
+            </div>
+
+            <div>
+                <label for="tipo_producto">
+                    Tipo Producto
+                </label>
+                <select id="tipo_producto" name="tipo_producto">
+                    <option value="">Selecciona un tipo</option>
+                </select>
+                <span id="errorTipo" style="color: red; display: none;">Selecciona un tipo de producto</span>
+            </div>
+
+            <div>
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+    <script src="scripts/script.js"></script>
+
+</body>
+
+</html>

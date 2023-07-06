@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.container {
+    background: linear-gradient(#FCF3CC, #FFFFFF);
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.formCompra {
+    background: #FFFFFF;
+
+    width: 20rem;
+    height: 80%;
+
+    padding: 1rem;
+    margin: 0;
+
+    border: 1px #EAA13B solid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formCompra div {
+    display: flex;
+    flex-direction: column;
+}
+
+.formCompra input, select {
+    padding-left: 5px;
+    padding-right: 5px;
+
+    height: 2rem;
+    margin-bottom: 10px;
+    border: 1px solid #677589;
+    background-color: #F8FAFC;
+    color: #677589; 
+}
+.formCompra button {
+    height: 3rem;
+    background-color: #F3C04B;
+    border: 0px solid;
+    color: #FFFFFF;
+    cursor: pointer;
+}
