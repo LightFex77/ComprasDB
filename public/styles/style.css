@@ -46,10 +46,21 @@
     background-color: #F8FAFC;
     color: #677589; 
 }
-.formCompra button {
+.formCompra button{
     height: 3rem;
     background-color: #F3C04B;
     border: 0px solid;
     color: #FFFFFF;
     cursor: pointer;
+}
+.formCompra .cliente{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+}
+.formCompra .cliente button{
+    margin-top: 0.5rem;
+    height: 2.2rem;
+    width: 5rem;
 }

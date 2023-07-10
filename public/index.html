@@ -26,7 +26,7 @@
                 <input id="fechaVencimientoInput" name="fecha_vencimiento" type="date" />
                 <span id="errorFecha" style="color: red; display: none;">Introduce una fecha mayor</span>
             </div>
-
+            
             <div>
                 <label for="tipo_producto">
                     Tipo Producto
@@ -36,8 +36,14 @@
                 </select>
                 <span id="errorTipo" style="color: red; display: none;">Selecciona un tipo de producto</span>
             </div>
-
-            <div>
+            <div class="cliente">
+                <div>
+                    <label for="clienteInput">Cliente</label>
+                <input id= "clienteInput" name = "clienteInput" type="text" placeholder="RUC">
+                </div>
+                <button type="submit">Buscar</button>
+            </div>
+            <div class="guardarB">
                 <button type="submit">Guardar</button>
             </div>
         </form>
