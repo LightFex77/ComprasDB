@@ -1,12 +1,12 @@
-const express = require("express");
+const express = require("express")
+const app = express();
 const path = require("path");
 const pg = require('pg');
-
-const app = express();
 const expressConfiguracionJson = express.json();
 
 app.use(expressConfiguracionJson)
 
+//Conectar a la base de datos
 const connection = new pg.Pool({
     host: 'localhost',
     user: 'postgres',
@@ -15,6 +15,23 @@ const connection = new pg.Pool({
     database: 'postgres'
 });
 
+//Linea de codigo para utilizar los archivos estaticos (css, js) de public
+app.use(express.static(path.join(__dirname, "public")));
+
+//Conseguir el archivo raiz y enviarselo al cliente
+app.get("/", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/index.html"));
+    // res.send("hello");
+})
+
+//mensjae de prueba de conexion con exito
+app.listen(3000, async () => {
+    await connection.connect()
+    console.log('database is running');
+    console.log("server listening running", 3000);
+})
+
+//Hacer la consulta al servidor y conseguir la tabla tipo-producto
 app.get("/tipo-producto", async (req, res)=>{
     const tipoProductos = await connection.query(`
         SELECT * FROM tipo_producto;
@@ -24,8 +41,8 @@ app.get("/tipo-producto", async (req, res)=>{
     })
 })
 
+//Hacer la consulta al servidor e insertar elementos en la tabla tipo-producto
 app.post("/tipo-producto", async (req, res)=>{
-    console.log({"reqbody": req.body})
     const nombre = req.body.nombre;
     const estado = req.body.estado;
     const fechaCreacion = new Date();
@@ -35,17 +52,6 @@ app.post("/tipo-producto", async (req, res)=>{
     `, [nombre, estado, fechaCreacion.toISOString()])
     res.status(200).json({
         resultado: nuevoProducto.rows
-    })
-})
-//Conseguir la tabla compras
-
-app.get("/compras", async (req, res)=>{
-    const nuevaCompra = await connection.query(`
-        SELECT * FROM compras;
-    `)
-    console.log(nuevaCompra.rows)
-    res.status(200).json({
-        resultado : nuevaCompra.rows
     })
 })
 
@@ -67,15 +73,24 @@ app.post("/compras", async (req, res)=>{
     })
 })
 
-app.use(express.static(path.join(__dirname, "public")));
-
-app.get("/", (req, res)=>{
-    res.sendFile(path.join(__dirname + "/index.html"));
-    // res.send("hello");
+//Conseguimos la tabla clientes de la base de datos
+app.get("/clientes", async(req, res)=>{
+    const clientes = await connection.query(`
+        SELECT * FROM clientes;
+    `)
+    res.status(200).json({
+        resultado: clientes.rows
+    })
 })
 
-app.listen(3000, async () => {
-    await connection.connect()
-    console.log('database is running');
-    console.log("server listening running", 3000);
+app.post("/clientes", async(req, res)=>{
+    const {ruc, ruc_tipo = "NATURAL", nombre, apellido, estado = "ACT"} = req.body;
+    const nuevoCliente = await connection.query(`
+    INSERT INTO public.clientes(
+        ruc, ruc_tipo, nombre, apellido, estado)
+        VALUES ($1, $2, $3, $4, $5);
+    `, [ruc, ruc_tipo, nombre, apellido, estado])
+    res.status(200).json({
+        resultado: nuevoCliente.rows
+    })
 })
