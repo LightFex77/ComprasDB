@@ -5,10 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/modal.css">
     <title>App</title>
 </head>
 
 <body>
+    <section id="modal" class="modal">
+        <div class="modal_container">
+            <form class="formCliente" id="clientes">
+                <label for="ruc">
+                    RUC:
+                </label>
+                <input id="ruc" name="ruc" placeholder="1234567890"/>
+                <label for="nombreRuc">
+                    Nombre:
+                </label>
+                <input id="nombreRuc" name="nombreRuc" placeholder="****">
+                <label for="apellidoRuc">
+                    Apellido:
+                </label>
+                <input id="apellidoRuc" name="apellidoRuc" placeholder="****">
+                <button id="guardarRuc">Guardar</button>
+            </form>
+        </div>
+    </section>
+
+
     <div class="container">
         <form class="formCompra" id="compras">
             <div>
@@ -41,7 +63,11 @@
                     <label for="clienteInput">Cliente</label>
                 <input id= "clienteInput" name = "clienteInput" type="text" placeholder="RUC">
                 </div>
-                <button type="submit">Buscar</button>
+                <div>
+                    <button id="botonBuscar">Buscar</button>
+                </div>
+            </div>
+            <div id="clienteRuc" class="clienteRuc">
             </div>
             <div class="guardarB">
                 <button type="submit">Guardar</button>
@@ -49,7 +75,7 @@
         </form>
     </div>
     <script src="scripts/script.js"></script>
-
+    <script src="scripts/modal.js"></script>
 </body>
 
 </html>
