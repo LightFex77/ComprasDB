@@ -6,6 +6,9 @@ const clienteInput = document.getElementById("clienteInput");
 const botonBuscar = document.getElementById('botonBuscar');
 const clienteRuc = document.getElementById('clienteRuc');
 
+let clienteEncontrado = false; // Variable para indicar si se encontró el cliente
+let json;
+
 const guardarButton = document.getElementById("guardarButton");
 
 const errorMensaje = document.getElementById("errorMensaje");
@@ -84,8 +87,12 @@ document.getElementById("compras").onsubmit = async function crear(e) {
         const data = {
             "valor": form.get("valor").replace(/\./g, ""),
             "fecha_vencimiento": form.get("fecha_vencimiento"),
-            "tipo": parseInt(form.get("tipo_producto"))
+            "tipo": parseInt(form.get("tipo_producto")),
         }
+        
+        if (clienteEncontrado) {
+          data.cliente_id = json.id; // Agregar el valor del cliente_id si se encontró el cliente
+      }
         const respuesta = await fetch("/compras", {
             method: "POST",
             body: JSON.stringify(data),
@@ -140,9 +147,9 @@ async function buscarCliente() {
       e.preventDefault();
       const ruc = clienteInput.value;
   
-      let clienteEncontrado = false; // Variable para indicar si se encontró el cliente
+      // let clienteEncontrado = false; // Variable para indicar si se encontró el cliente
   
-      for (const json of clientesJson) {
+      for (json of clientesJson) {
         console.log(json.ruc);
   
         if (json.ruc === ruc && ruc !== "") {
@@ -189,9 +196,6 @@ async function buscarCliente() {
       }
     });
   }
-  
-  buscarCliente();
-  
 
 buscarCliente();
 

@@ -58,16 +58,16 @@ app.post("/tipo-producto", async (req, res)=>{
 //Metodo post tabla compras
 app.post("/compras", async (req, res)=>{
     console.log({"reqbody": req.body})
-    const {valor, fecha_vencimiento: fechaVencimiento, estado = "pen", tipo} = req.body;
+    const {valor, fecha_vencimiento: fechaVencimiento, estado = "pen", tipo, cliente_id} = req.body;
     const fechaCreacion = new Date();
     const fechaVencimientoParseado = new Date(fechaVencimiento);
-    console.log([valor, fechaCreacion, fechaVencimientoParseado, estado, tipo])
+    console.log([valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id])
 
     const nuevaCompra = await connection.query(`
     INSERT INTO public.compras(
-        valor, fecha_creacion, fecha_vencimiento, estado, tipo)
-        VALUES ($1, $2, $3, $4, $5);
-    `, [valor, fechaCreacion, fechaVencimientoParseado, estado, tipo])
+        valor, fecha_creacion, fecha_vencimiento, estado, tipo, cliente_id)
+        VALUES ($1, $2, $3, $4, $5, $6);
+    `, [valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id])
     res.status(200).json({
         resultado: nuevaCompra.rows
     })
@@ -84,7 +84,7 @@ app.get("/clientes", async(req, res)=>{
 })
 
 app.post("/clientes", async(req, res)=>{
-    const {ruc, ruc_tipo = "NATURAL", nombre, apellido, estado = "ACT"} = req.body;
+    const {ruc, ruc_tipo = "natural", nombre, apellido, estado = "act"} = req.body;
     const nuevoCliente = await connection.query(`
     INSERT INTO public.clientes(
         ruc, ruc_tipo, nombre, apellido, estado)
