@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/modal.css">
+    <title>App</title>
+</head>
+
+<body>
+    <section id="modal" class="modal">
+        <div class="modal_container">
+            <form class="formCliente" id="clientes">
+                <label for="ruc">
+                    RUC:
+                </label>
+                <input id="ruc" name="ruc" placeholder="1234567890"/>
+                <span id="rucError" class="error-message" style="color: red;"></span>
+                <label for="nombreRuc">
+                    Nombre:
+                </label>
+                <input id="nombreRuc" name="nombreRuc" placeholder="****">
+                <span id="nombreError" class="error-message" style="color: red;"></span>
+                <label for="apellidoRuc">
+                    Apellido:
+                </label>
+                <input id="apellidoRuc" name="apellidoRuc" placeholder="****">
+                <span id="apellidoError" class="error-message" style="color: red;"></span>
+                <button id="guardarRuc">Guardar</button>
+                <button id="rucCancel" class="rucCancel" type="button">Cancelar</button>
+            </form>
+        </div>
+    </section>
+
+
+    <div class="container">
+        <form class="formCompra" id="compras">
+            <div>
+                <label for="valorInput">
+                    Valor del producto:
+                </label>
+                <input id="valorInput" name="valor" placeholder="$123.000"/>
+                <span id="errorMensaje" style="color: red; display: none;">El valor debe ser un número positivo</span>
+            </div>
+
+            <div>
+                <label for="fechaVencimientoInput">
+                    Fecha de Vencimiento:
+                </label> 
+                <input id="fechaVencimientoInput" name="fecha_vencimiento" type="date" />
+                <span id="errorFecha" style="color: red; display: none;">Introduce una fecha mayor</span>
+            </div>
+            
+            <div>
+                <label for="tipo_producto">
+                    Tipo Producto
+                </label>
+                <select id="tipo_producto" name="tipo_producto">
+                    <option value="">Selecciona un tipo</option>
+                </select>
+                <span id="errorTipo" style="color: red; display: none;">Selecciona un tipo de producto</span>
+            </div>
+            <div class="cliente">
+                <div>
+                    <label for="clienteInput">Cliente</label>
+                <input id= "clienteInput" name = "clienteInput" type="text" placeholder="RUC">
+                </div>
+                <div>
+                    <button id="botonBuscar">Buscar</button>
+                </div>
+            </div>
+            <div id="clienteRuc" class="clienteRuc">
+            </div>
+            <div class="guardarB">
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/modal.js"></script>
+</body>
+
+</html>

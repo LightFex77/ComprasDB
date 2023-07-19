@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.container {
+    background: linear-gradient(#FCF3CC, #FFFFFF);
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.formCompra {
+    background: #FFFFFF;
+
+    width: 20rem;
+    height: 80%;
+
+    padding: 1rem;
+    margin: 0;
+
+    border: 1px #EAA13B solid;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.formCompra div {
+    display: flex;
+    flex-direction: column;
+}
+
+.formCompra input, select {
+    padding-left: 5px;
+    padding-right: 5px;
+
+    height: 2rem;
+    border: 1px solid #677589;
+    background-color: #F8FAFC;
+    color: #677589; 
+}
+.formCompra button{
+    height: 3rem;
+    background-color: #F3C04B;
+    border: 0px solid;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.formCompra .cliente{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+}
+.formCompra .cliente button{
+    margin-top: 1.1rem;
+    height: 2.2rem;
+    width: 5rem;
+}
+.formCompra .clienteRuc{
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px #EAA13B solid;
+    display: none;
+}
+.formCompra .clienteRuc .nombre{
+    color: #EAA13B;
+}
+.formCompra .clienteRuc button {
+    width: 3rem;
+    height: 2rem;
+}
