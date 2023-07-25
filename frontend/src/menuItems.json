@@ -1,0 +1,15 @@
+[
+  {
+    "titulo": "Compras",
+    "submenu": ["Ingresar", "Compras de Hoy"]
+  },
+  {
+    "titulo": "Clientes"
+  },
+  {
+    "titulo": "Ventas"
+  },
+  {
+    "titulo": "Usuario"
+  }
+]
