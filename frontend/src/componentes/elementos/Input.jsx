@@ -11,7 +11,8 @@ export const Input = ({
   value,
   onChange,
   readOnly,
-  classNameContainer
+  classNameContainer,
+  onBlur
 }) => {
   return (
     <div className={"input_container " + classNameContainer}>
@@ -25,6 +26,7 @@ export const Input = ({
         value={value}
         onChange={onChange}
         readOnly={readOnly}
+        onBlur={onBlur}
       />
       <span id={id} className="error-message" style={{ color: "red" }}>
         {error}
