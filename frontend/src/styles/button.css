@@ -1,20 +1,22 @@
 .button {
-    border: none;
-    padding: 0.8rem;
-    cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  padding: 0.8rem;
+  cursor: pointer;
 }
+
 .button-blue {
-    background-color: #6586F5;
-    color: white;
+  background-color: #6586f5;
+  color: white;
 }
 
 .button-softblue {
-    background-color: #6586F533;
-    color: black;
+  background-color: #6586f533;
+  color: black;
 }
 
 .button-yellow {
-    background-color: #F5D465;
-    color: black;
-    width: 100%;
+  background-color: #f5d465;
+  color: black;
+  width: 100%;
 }
