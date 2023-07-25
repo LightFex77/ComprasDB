@@ -2,8 +2,13 @@ const express = require("express")
 const app = express();
 const path = require("path");
 const pg = require('pg');
-const expressConfiguracionJson = express.json();
+const cors = require('cors');
 
+const expressConfiguracionJson = express.json();
+const corsConfiguracion = cors("http://localhost:5173")
+
+
+app.use(corsConfiguracion)
 app.use(expressConfiguracionJson)
 
 //Conectar a la base de datos
@@ -12,7 +17,8 @@ const connection = new pg.Pool({
     user: 'postgres',
     password: 'admin123',
     port: 5432,
-    database: 'postgres'
+    database: 'postgres',
+
 });
 
 //Linea de codigo para utilizar los archivos estaticos (css, js) de public
@@ -55,12 +61,15 @@ app.post("/tipo-producto", async (req, res)=>{
     })
 })
 
+const HORAS_DIFERENCIA_UTC = new Date().getTimezoneOffset() * 60000;
+
 //Metodo post tabla compras
 app.post("/compras", async (req, res)=>{
     console.log({"reqbody": req.body})
     const {valor, fecha_vencimiento: fechaVencimiento, estado = "pen", tipo, cliente_id} = req.body;
     const fechaCreacion = new Date();
-    const fechaVencimientoParseado = new Date(fechaVencimiento);
+    const fechaVencimientoParseado = new Date(new Date(fechaVencimiento).getTime() + HORAS_DIFERENCIA_UTC) 
+
     console.log([valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id])
 
     const nuevaCompra = await connection.query(`
@@ -75,11 +84,22 @@ app.post("/compras", async (req, res)=>{
 
 //Conseguimos la tabla clientes de la base de datos
 app.get("/clientes", async(req, res)=>{
+    const ruc = req.query.ruc;
+
+    console.log("el ruc ->",ruc);
+
+    if (!ruc) {
+        return res.status(400).json({
+            error: "Falta el ruc"
+        })
+    }
+
     const clientes = await connection.query(`
-        SELECT * FROM clientes;
-    `)
+        SELECT * FROM clientes
+        WHERE ruc = $1
+    `,[ruc]);
     res.status(200).json({
-        resultado: clientes.rows
+        resultado: clientes.rows[0]
     })
 })
 
