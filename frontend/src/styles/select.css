@@ -1,0 +1,7 @@
+.select-container{
+    display: flex;
+    flex-direction: column;
+}
+.select-container select{
+    height: 2rem;
+}
