@@ -214,6 +214,11 @@ export const FormularioCompra = () => {
               value={valor}
               error={errorValor}
               onChange={(e) => setValor(e.target.value)}
+              onBlur={() => {
+                const esValorValido = validarValor();
+                if (!esValorValido) setErrorValor("Valor invalido");
+                else setErrorValor("");
+              }}
             />
 
             <Input
