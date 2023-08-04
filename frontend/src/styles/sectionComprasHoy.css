@@ -1,0 +1,41 @@
+.tabla-principal{
+    margin-top: 1rem;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 1rem;
+}
+
+.informacion-de-datos{
+    padding: 5px;
+    background-color: #E0E7FD;
+    border-radius: 5px;
+}
+
+.row-item {
+    position: relative;
+}
+.row-item::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #E0E7FD;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.datos-de-compra{
+    padding: 5px;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+/* .nombre-c-e{
+    background-color: #FFFF;
+}
+.no-registrado{
+    background-color: rgb(55, 54, 54);
+    color: #FFFF;
+} */

@@ -3,7 +3,7 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.post('/empleados', login);
+router.post('/login', login);
 
 module.exports = router;
 

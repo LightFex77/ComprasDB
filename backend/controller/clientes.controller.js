@@ -1,6 +1,8 @@
 const {
   obtenerClientePorRUC,
   insertarCliente,
+  clientesRegistrados,
+  buscarCliente
 } = require("../services/clientes.service");
 
 const getClientes = async (req, res) => {
@@ -43,12 +45,37 @@ const insertClient = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      error: "Ha ocurrido un error, intenta mas tarde o contacta al desarrollador",
+      error:
+        "Ha ocurrido un error, intenta mas tarde o contacta al desarrollador",
     });
   }
 };
 
+const clientsRegistrer = async (req, res) => {
+  const clientes = await clientesRegistrados();
+
+  res.status(200).json({
+    resultado: clientes,
+  });
+};
+
+const searchClient = async (req, res) => {
+const {ruc, nombre, apellido} = req.query;
+
+try{
+  const resultados = await buscarCliente(ruc, nombre, apellido);
+  res.status(200).json({
+    resultado: resultados
+  })
+}catch(error){
+  res.status(500).json({
+    error: "Error al buscar el RUC"
+  })
+}
+} 
 module.exports = {
   getClientes,
   insertClient,
+  clientsRegistrer,
+  searchClient
 };

@@ -1,71 +1,67 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "../elementos/Button";
 import { Input } from "../elementos/Input";
 import { Select } from "../elementos/Select";
 import "../../styles/sectionCompra.css";
 import { ModalCompra } from "./ModalCompra";
 // import { ModalCompra } from "./ModalCompra";
+import { useTipoProductos } from "../../hooks/useTipoProductos";
+import { validarFecha, validarSearchRuc, validarTipo, validarValor } from "../../utils/validarCompra";
 
 export const FormularioCompra = () => {
+
+  const history = useHistory();
+  
   const [valor, setValor] = useState("");
   const [fechaVencimiento, setFechaVencimiento] = useState(
     new Date().toLocaleDateString("en-CA")
   );
   const [tipoProducto, setTipoProducto] = useState("");
   const [ruc, setRuc] = useState("");
-  const [clienteId, setClienteId] = useState(null);
-  const [clientCheck, setClientCheck] = useState(false);
-  const [listaDeTipos, setListaDeTipos] = useState([]);
+  const [clienteId, setClienteId] = useState(null); //devuelve el cliente_id
+  const [clientCheck, setClientCheck] = useState(false); //Marcar y desmarcar una compra
 
-  const [clientInfo, setClientInfo] = useState({ nombre: "", apellido: "" });
+  const [clientInfo, setClientInfo] = useState({ nombre: "", apellido: "" }); //si existe el ruc de la persona mostramos su nombre y apellido
 
   const [rucInvalido, setRucInvalido] = useState("");
   const [modalShow, setModalShow] = useState(false);
-  const [prevClienteId, setPrevClienteId] = useState(null); // Remover implementacion
+
 
   const [errorValor, setErrorValor] = useState("");
   const [errorFecha, setErrorFecha] = useState("");
   const [errorTipo, setErrorTipo] = useState("");
   const [errorRucValor, setErrorRucValor] = useState("");
+  
+  const [empleado, setEmpleado] = useState(null);
 
-  // use effect para cargar las listas de tipo producto
   useEffect(() => {
-    async function compraLista() {
-      try {
-        //buscar la base de datos y obtenerla GET
-        const backendUrl = "http://localhost:3000";
-        const respuestaBd = await fetch(backendUrl + "/tipo-producto", {
-          method: "GET",
-        });
 
-        //Obtener los datos en JSON
-        const bdJson = await respuestaBd.json();
-        const resultado = bdJson.resultado;
 
-        setListaDeTipos(resultado);
-      } catch (error) {
-        console.log({ error });
-      }
+      const empleadoGuardado = localStorage.getItem("empleado")
+    if (empleadoGuardado) {
+      const empleadoJson = JSON.parse(empleadoGuardado);
+      setEmpleado(empleadoJson);
+    } else {
+      // devolver al login
+      history.push("/login");
     }
-    //Hacer que la funcion se ejecute cada vez que se inicia la pagina
-    compraLista();
-  }, []);
+  }, [])
+
+  const listaDeTipos = useTipoProductos();
 
   const onCheck = (e) => {
     e.preventDefault();
     setRucInvalido(null);
-    setPrevClienteId(clienteId);
 
     if (!clientCheck) {
       setClientCheck(true);
-      setClienteId((prevClienteId) => {
-        setPrevClienteId(prevClienteId);
-        return null;
-      });
+      setClientInfo({nombre: "", apellido: ""});
+      setClienteId(null);
     } else {
       // Si clientCheck es verdadero, establecemos clienteId en prevClienteId
       setClientCheck(false);
-      setClienteId(prevClienteId);
+      
     }
     console.log(clienteId);
   };
@@ -82,35 +78,16 @@ export const FormularioCompra = () => {
     setRucInvalido(null);
   };
 
-  const validarValor = () => {
-    const val = parseInt(valor);
-    return !isNaN(val) && val > 0;
-  };
-
-  const validarFecha = () => {
-    const fechaActual = new Date().toLocaleDateString("en-CA");
-    return fechaVencimiento > fechaActual;
-  };
-
-  const validarTipo = () => {
-    return tipoProducto != "";
-  };
-
-  const validarSearchRuc = () => {
-    const val = parseInt(ruc);
-    return !isNaN(val);
-  };
-
   const crearForm = async (e) => {
     e.preventDefault();
     setErrorValor("");
     setErrorFecha("");
     setErrorTipo("");
-    console.log("HOLA")
+    console.log("HOLA");
 
-    const esValorValido = validarValor();
-    const esFechaValido = validarFecha();
-    const esTipoValido = validarTipo();
+    const esValorValido = validarValor(valor);
+    const esFechaValido = validarFecha(fechaVencimiento);
+    const esTipoValido = validarTipo(tipoProducto);
 
     if (esValorValido && esFechaValido && esTipoValido) {
       const data = {
@@ -118,6 +95,7 @@ export const FormularioCompra = () => {
         fecha_vencimiento: fechaVencimiento,
         tipo: parseInt(tipoProducto),
         cliente_id: clienteId,
+        empleado_id: empleado.empleado.id
       };
 
       await fetch("http://localhost:3000/compras", {
@@ -135,7 +113,8 @@ export const FormularioCompra = () => {
   };
 
   const buscarCliente = async (ruc) => {
-    if (validarSearchRuc()) {
+
+    if (validarSearchRuc(ruc)) {
       const respuestaBd = await fetch(
         "http://localhost:3000/clientes?ruc=" + ruc,
         {
@@ -154,7 +133,7 @@ export const FormularioCompra = () => {
     setRucInvalido(null);
     setErrorRucValor("");
 
-    if (!validarSearchRuc()) {
+    if (!validarSearchRuc(ruc)) {
       setErrorRucValor("Ingrese un RUC valido");
     } else {
       const clientesJson = await buscarCliente(ruc);
@@ -185,15 +164,15 @@ export const FormularioCompra = () => {
   const clientInputs = clienteId !== null;
 
   return (
-    <div className="container">
+    <div className="container" id="ingresarCompras">
       <ModalCompra
         modalShow={modalShow}
         setModalShow={setModalShow} // Pasar la función al componente ModalCompra
         onClienteCreado={handleClienteCreado}
       />
-      <h1 className="ingresar-compra">Ingresar Compra</h1>
+      <h1 className="h1Style">Ingresar Compra - {empleado?.empleado?.nombre}</h1>
       <form className="formCompra" id="compras" onSubmit={crearForm}>
-        <hr />
+        <hr className="hrStyle" />
         <div className="producto-container">
           <Select
             id="tipoProducto"
@@ -215,7 +194,7 @@ export const FormularioCompra = () => {
               error={errorValor}
               onChange={(e) => setValor(e.target.value)}
               onBlur={() => {
-                const esValorValido = validarValor();
+                const esValorValido = validarValor(valor);
                 if (!esValorValido) setErrorValor("Valor invalido");
                 else setErrorValor("");
               }}
@@ -233,7 +212,7 @@ export const FormularioCompra = () => {
           </div>
         </div>
 
-        <hr />
+        <hr className="hrStyle" />
 
         <div className="cliente-ruc-container">
           <section className="ruc-section">
@@ -313,7 +292,12 @@ export const FormularioCompra = () => {
           )}
         </div>
 
-        <Button type="sumbit" textContent="Guardar" id="guardarButton" className="save-button" />
+        <Button
+          type="sumbit"
+          textContent="Guardar"
+          id="guardarButton"
+          className="save-button"
+        />
       </form>
     </div>
   );

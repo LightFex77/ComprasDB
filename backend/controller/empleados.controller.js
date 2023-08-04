@@ -5,6 +5,9 @@ const login = async (req, res) => {
     const empleado = await obtenerEmpleado(req.body.email, req.body.password);
 
     if(empleado){
+        console.log('El usuario exite');
+
+
         const token = jwt.sign(
             {
                 empleadoId: empleado.id,
@@ -20,6 +23,8 @@ const login = async (req, res) => {
             empleado,
             token
         });
+    }else{
+        console.log('El usuario no exite');
     }
     return res.status(400).json({
         error: "El empleado no existe"

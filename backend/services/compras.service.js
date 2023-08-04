@@ -8,12 +8,12 @@ const connection = new pg.Pool({
     database: "postgres",
   });
 
-const insertarProducto = async (valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id) => {
+const insertarProducto = async (valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id, empleado_id) => {
     const nuevaCompra = await connection.query(`
     INSERT INTO public.compras(
-        valor, fecha_creacion, fecha_vencimiento, estado, tipo, cliente_id)
-        VALUES ($1, $2, $3, $4, $5, $6);
-    `, [valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id])
+        valor, fecha_creacion, fecha_vencimiento, estado, tipo, cliente_id, empleado_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7);
+    `, [valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id, empleado_id])
     return nuevaCompra.rows;
 }
 

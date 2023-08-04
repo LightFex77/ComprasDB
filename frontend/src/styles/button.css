@@ -18,5 +18,8 @@
 .button-yellow {
   background-color: #f5d465;
   color: black;
-  width: 100%;
+}
+.button-gray{
+  background-color: #97A3B6;
+  color: #FFFF;
 }

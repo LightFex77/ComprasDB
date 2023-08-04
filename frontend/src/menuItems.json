@@ -1,15 +1,20 @@
 [
   {
+    "id": 1,
     "titulo": "Compras",
     "submenu": ["Ingresar", "Compras de Hoy"]
   },
   {
-    "titulo": "Clientes"
+    "id": 2,
+    "titulo": "Clientes",
+    "submenu" : ["Buscar"]
   },
   {
+    "id": 3,
     "titulo": "Ventas"
   },
   {
-    "titulo": "Usuario"
+    "id": 4,
+    "titulo": "Cerrar Sesión"
   }
 ]

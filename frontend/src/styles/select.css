@@ -3,5 +3,13 @@
     flex-direction: column;
 }
 .select-container select{
-    height: 2rem;
+    background-color: #FAFAFA;
+    border: 1px #000000 solid;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.select-container label {
+    font-weight: 700;
+    font-size: 12px;
 }
