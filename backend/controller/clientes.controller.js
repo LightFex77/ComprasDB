@@ -72,10 +72,16 @@ try{
     error: "Error al buscar el RUC"
   })
 }
-} 
+}
+
+// const buscarCliente = () => {
+// const {buscar} = req.query;
+// }
+
 module.exports = {
   getClientes,
   insertClient,
   clientsRegistrer,
   searchClient
 };
+

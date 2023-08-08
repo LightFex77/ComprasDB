@@ -6,7 +6,7 @@ const connection = new pg.Pool({
     password: "admin123",
     port: 5432,
     database: "postgres",
-  });
+});
 
 const insertarProducto = async (valor, fechaCreacion, fechaVencimientoParseado, estado, tipo, cliente_id, empleado_id) => {
     const nuevaCompra = await connection.query(`

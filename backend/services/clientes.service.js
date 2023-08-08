@@ -94,6 +94,27 @@ WHERE
   }
 };
 
+
+const buscarClienteV2 = async (buscar) => {
+  try {
+
+    if (/d+/.test(buscar)) {
+      return obtenerClientePorRUC(buscar);
+    } else {
+      const query = `
+      SELECT * FROM clientes
+      WHERE lower(nombre) = $1 OR
+          lower(apellido) = $1
+    `;
+      const values = [buscar.toLoweCase()];
+      const result = await connection.query(query, values);
+      return result.rows;
+    }
+  } catch (error) {
+    console.error("Error al buscar el RUC");
+  }
+};
+
 module.exports = {
   obtenerClientePorRUC,
   insertarCliente,
