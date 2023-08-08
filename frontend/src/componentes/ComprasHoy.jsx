@@ -1,16 +1,12 @@
 import "../styles/sectionComprasHoy.css";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { formatFecha } from "../utils/formatFecha";
+import { useRedirectToLogin } from "../hooks/redirectLogin";
 
 export const ComprasHoy = () => {
   const [infoCompras, setInfoCompras] = useState(null);
-  const history = useHistory();
 
-  useEffect(() => {
-    const empleadoGuardado = localStorage.getItem("empleado")
-  !empleadoGuardado && history.push("/login");
-}, [])
+  useRedirectToLogin();
 
   const comprasDelDia = async () => {
     const respuestaBd = await fetch("http://localhost:3000/compras-de-hoy", {

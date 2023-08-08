@@ -1,16 +1,12 @@
 // Clientes.js
-import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Input } from "../componentes/elementos/Input";
 import { Button } from "../componentes/elementos/Button";
+import { useRedirectToLogin } from "../hooks/redirectLogin";
 
 export const Clientes = () => {
-  const history = useHistory();
 
-  useEffect(() => {
-    const empleadoGuardado = localStorage.getItem("empleado");
-    !empleadoGuardado && history.push("/login");
-  }, []);
+  useRedirectToLogin();
 
   const [searchValue, setSearchValue] = useState("");
   const [infoClientes, setInfoClientes] = useState(null);

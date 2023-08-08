@@ -9,7 +9,7 @@ import { Input } from "./elementos/Input";
 import { useState } from "react";
 //states
 import { useHistory } from "react-router-dom";
-import { useEffect } from "react";
+import { useRedirectToLogin } from "../hooks/redirectLogin";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,10 +42,7 @@ export const Login = () => {
     }
   };
 
-  useEffect(() => {
-    const empleado = localStorage.getItem("empleado");
-    !!empleado && history.push("/compras");
-  }, [history]);
+  useRedirectToLogin();
 
   // cuando se monte el compnente se debe validar que el empleado no exista en el localstorage, sino -> app
 
