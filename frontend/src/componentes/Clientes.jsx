@@ -1,15 +1,16 @@
 // Clientes.js
-import { useEffect, useState } from "react";
 import { Input } from "../componentes/elementos/Input";
 import { Button } from "../componentes/elementos/Button";
+import { useHistory } from 'react-router-dom';
+import { useState } from "react";
 import { useRedirectToLogin } from "../hooks/redirectLogin";
 
 export const Clientes = () => {
-
+  const history = useHistory();
   useRedirectToLogin();
 
   const [searchValue, setSearchValue] = useState("");
-  const [infoClientes, setInfoClientes] = useState(null);
+  // const [infoClientes, setInfoClientes] = useState(null);
 
   const onChangeCliente = async (e) => {
     e.preventDefault();
@@ -40,24 +41,6 @@ export const Clientes = () => {
     }
   };
 
-  const clientesRegistrados = async () => {
-    const respuestaBd = await fetch(
-      "http://localhost:3000/clientes-registrados",
-      {
-        method: "GET",
-      }
-    );
-    const bdJson = await respuestaBd.json();
-    const resultado = bdJson.resultado;
-
-    // Convertir la fecha de vencimiento a cadena en formato "dd/mm/aaaa"
-    setInfoClientes(resultado);
-  };
-
-  useEffect(() => {
-    clientesRegistrados();
-  }, []);
-
   return (
     <div className="container">
       <h1 className="h1Style">Buscar cliente</h1>
@@ -74,7 +57,7 @@ export const Clientes = () => {
         />
       </form>
       <table>
-        {infoClientes ? (
+        {/* {infoClientes ? (
           <tbody>
             {infoClientes.map((item, index) => (
               <tr key={index} className="row-item">
@@ -93,7 +76,7 @@ export const Clientes = () => {
               <td colSpan={3}>Cargando...</td>
             </tr>
           </tbody>
-        )}
+        )} */}
       </table>
     </div>
   );

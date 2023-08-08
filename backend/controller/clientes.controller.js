@@ -1,7 +1,6 @@
 const {
   obtenerClientePorRUC,
   insertarCliente,
-  clientesRegistrados,
   buscarCliente
 } = require("../services/clientes.service");
 
@@ -51,14 +50,6 @@ const insertClient = async (req, res) => {
   }
 };
 
-const clientsRegistrer = async (req, res) => {
-  const clientes = await clientesRegistrados();
-
-  res.status(200).json({
-    resultado: clientes,
-  });
-};
-
 const searchClient = async (req, res) => {
 const {ruc, nombre, apellido} = req.query;
 
@@ -76,6 +67,5 @@ try{
 module.exports = {
   getClientes,
   insertClient,
-  clientsRegistrer,
   searchClient
 };

@@ -31,29 +31,7 @@ const insertarCliente = async (ruc, ruc_tipo, nombre, apellido, estado) => {
   );
 
   return await obtenerClientePorRUC(ruc);
-};
-
-const clientesRegistrados = async () => {
-  const clientes = await connection.query(
-    `
-      SELECT
-      cl.id,
-      cl.nombre,
-      cl.apellido,
-      cl.ruc,
-      c.estado
-
-      FROM public.compras as c
-
-      INNER JOIN public.clientes as cl
-      ON c.cliente_id = cl.id
-
-      INNER JOIN public.tipo_producto as p
-      ON c.tipo = p.id
-      `
-  );
-  return clientes.rows;
-};
+};  
 
 const buscarCliente = async (ruc, nombre, apellido) => {
   try {
@@ -97,6 +75,5 @@ WHERE
 module.exports = {
   obtenerClientePorRUC,
   insertarCliente,
-  clientesRegistrados,
   buscarCliente,
 };

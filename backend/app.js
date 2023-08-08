@@ -7,7 +7,6 @@ const tipoProductoRouter = require("./router/tipoProducto.router");
 const clientesRouter = require("./router/clientes.router");
 const comprasRouter = require("./router/compras.router");
 const empleadosRouter = require("./router/empleados.router");
-const consultarComprasRouter = require('./router/consultCompras.router');
 
 const expressConfiguracionJson = express.json();
 const corsConfiguracion = cors("http://localhost:5173")
@@ -51,5 +50,3 @@ app.use(comprasRouter);
 app.use(clientesRouter);
 
 app.use(empleadosRouter);
-
-app.use(consultarComprasRouter);

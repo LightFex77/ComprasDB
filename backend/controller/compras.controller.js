@@ -1,4 +1,4 @@
-const { insertarProducto } = require("../services/compras.service");
+const { insertarProducto, consultarCompras } = require("../services/compras.service");
 
 const HORAS_DIFERENCIA_UTC = new Date().getTimezoneOffset() * 60000;
 
@@ -16,6 +16,15 @@ const insertProducto = async (req, res) => {
   });
 };
 
+const comprasDeHoy = async (req, res) => {
+    const compras = await consultarCompras();
+  
+    res.status(200).json({
+      resultado: compras,
+    });
+  };
+
 module.exports = {
-    insertProducto
+    insertProducto,
+    comprasDeHoy
 }
