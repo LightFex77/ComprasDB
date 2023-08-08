@@ -38,12 +38,12 @@ export const ResultClient = () => {
     }
   };
 
-const onChangePagar = (e) => {
+const onClickPagar = (e) => {
   e.preventDefault();
   setShowPagar(true);
   
 }
-const onChangeLiquidar = (e) => {
+const onClickLiquidar = (e) => {
   e.preventDefault();
   setShowLiquidar(true);
 }
@@ -95,8 +95,8 @@ const onChangeLiquidar = (e) => {
                     </>
                   ) : (
                     <>
-                    <Button textContent="Pagar" onClick={onChangePagar}/>
-                    <Button mode="azul" textContent="Liquidar" onClick={onChangeLiquidar}/>
+                    <Button textContent="Pagar" onClick={onClickPagar}/>
+                    <Button mode="azul" textContent="Liquidar" onClick={onClickLiquidar}/>
                     </>
                   )}
                 </td>
