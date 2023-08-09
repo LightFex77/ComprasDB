@@ -4,41 +4,40 @@ import { Button } from "../componentes/elementos/Button";
 import { useHistory } from 'react-router-dom';
 import { useState } from "react";
 import { useRedirectToLogin } from "../hooks/redirectLogin";
-
+import { selectedCustomer } from "../utils/selectedCustomer";
 export const Clientes = () => {
-  const history = useHistory();
+  // const history = useHistory();
   useRedirectToLogin();
 
   const [searchValue, setSearchValue] = useState("");
-  // const [infoClientes, setInfoClientes] = useState(null);
+  const [infoClientes, setInfoClientes] = useState(null);
+  const history = useHistory();
 
   const onChangeCliente = async (e) => {
     e.preventDefault();
 
-    const searchValues = [
-      { param: "ruc", value: searchValue },
-      { param: "nombre", value: searchValue },
-      { param: "apellido", value: searchValue },
-    ];
-
     try {
       let resultado = null;
-      for (const search of searchValues) {
-        const endpoint = `cliente-compras?${search.param}=${search.value}`;
-        const response = await fetch(`http://localhost:3000/${endpoint}`);
-        const data = await response.json();
-        resultado = data.resultado;
-
-        if (resultado && resultado.length > 0) {
-          const clienteRuc = resultado[0].ruc;
-          history.push(`/registro-de-clientes/${clienteRuc}`);
+      const endpoint = `cliente-compras?buscar=${searchValue}`;
+      const response = await fetch(`http://localhost:3000/${endpoint}`);
+      const data = await response.json();
+      resultado = data.resultado;
+    
+      if (resultado) {
+        // Si es un objeto, lo convertimos en un array antes de asignarlo a infoClientes
+        const arrayResultado = Array.isArray(resultado) ? resultado : [resultado];
+        
+        if (arrayResultado.length > 0) {
+          setInfoClientes(arrayResultado);
           return;
         }
       }
+      
       console.log("No se encontraron resultados.");
     } catch (error) {
       console.error("Error al realizar la consulta:", error);
     }
+    
   };
 
   return (
@@ -57,10 +56,10 @@ export const Clientes = () => {
         />
       </form>
       <table>
-        {/* {infoClientes ? (
+        {infoClientes ? (
           <tbody>
             {infoClientes.map((item, index) => (
-              <tr key={index} className="row-item">
+              <tr key={index} className="row-item" style={{cursor : "pointer"}} onClick={() => selectedCustomer(item.ruc, history)}>
                 <td className="datos-de-compra">
                   Nombre: <span>{item.nombre}</span>{" "}
                   <span>{item.apellido}</span>
@@ -76,7 +75,7 @@ export const Clientes = () => {
               <td colSpan={3}>Cargando...</td>
             </tr>
           </tbody>
-        )} */}
+        )}
       </table>
     </div>
   );

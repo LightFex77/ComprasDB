@@ -20,16 +20,17 @@ export const ResultClient = () => {
   // Realizar el fetch con el RUC
   const obtenerDatosCliente = async () => {
     try {
-      const endpoint = `cliente-compras?ruc=${ruc}`;
+      const endpoint = `compras-por-ruc?ruc=${ruc}`;
       const response = await fetch(`http://localhost:3000/${endpoint}`);
       const data = await response.json();
       // Aquí puedes hacer algo con los datos recibidos del fetch
 
+      console.log(data.resultado)
       setDataClient(data);
       data.resultado.map((item) => {
         setNameClient({
-          nombre: item.nombre_cliente,
-          apellido: item.apellido_cliente,
+          nombre: item.cliente_nombre,
+          apellido: item.cliente_apellido,
           ruc: item.ruc
         });
       });

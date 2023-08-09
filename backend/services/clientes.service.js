@@ -33,44 +33,63 @@ const insertarCliente = async (ruc, ruc_tipo, nombre, apellido, estado) => {
   return await obtenerClientePorRUC(ruc);
 };  
 
-const buscarCliente = async (ruc, nombre, apellido) => {
-  try {
-    const newRuc = ruc;
-    const newNombre = nombre;
-    const newApellido = apellido;
-    const query = `
-SELECT 
-cl.nombre as nombre_cliente,
-cl.apellido as apellido_cliente,
-e.nombre as nombre_empleado,
-e.apellido as apellido_empleado,
-cl.ruc,
-c.estado,
-tp.texto as producto,
-c.valor,
-c.fecha_vencimiento
-
-FROM public.clientes as cl
-
-LEFT JOIN public.compras as c
-ON cl.id = c.cliente_id
-LEFT JOIN public.tipo_producto as tp
-ON c.tipo = tp.id
-LEFT JOIN public.empleados as e
-ON c.empleado_id = e.id
-
-WHERE 
-        cl.ruc = $1 OR
-        lower(cl.nombre) = lower($2) OR
-        lower(cl.apellido) = lower($3)
-  `;
-    const values = [newRuc, newNombre, newApellido];
-    const result = await connection.query(query, values);
-    return result.rows;
-  } catch (error) {
+const buscarCliente = async (buscar) => {
+  try{
+    if (/\d+/.test(buscar)) {
+      return obtenerClientePorRUC(buscar);
+    } else {
+      const query = `
+      SELECT * FROM clientes
+      WHERE lower(nombre) = lower($1) OR
+          lower(apellido) = lower($1)
+    `;
+      const values = [buscar];
+      const result = await connection.query(query, values);
+      return result.rows;
+    }
+  }catch(error){
     console.error("Error al buscar el RUC");
   }
-};
+}
+
+// const buscarCliente = async (ruc, nombre, apellido) => {
+//   try {
+//     const newRuc = ruc;
+//     const newNombre = nombre;
+//     const newApellido = apellido;
+//     const query = `
+// SELECT 
+// cl.nombre as nombre_cliente,
+// cl.apellido as apellido_cliente,
+// e.nombre as nombre_empleado,
+// e.apellido as apellido_empleado,
+// cl.ruc,
+// c.estado,
+// tp.texto as producto,
+// c.valor,
+// c.fecha_vencimiento
+
+// FROM public.clientes as cl
+
+// LEFT JOIN public.compras as c
+// ON cl.id = c.cliente_id
+// LEFT JOIN public.tipo_producto as tp
+// ON c.tipo = tp.id
+// LEFT JOIN public.empleados as e
+// ON c.empleado_id = e.id
+
+// WHERE 
+//         cl.ruc = $1 OR
+//         lower(cl.nombre) = lower($2) OR
+//         lower(cl.apellido) = lower($3)
+//   `;
+//     const values = [newRuc, newNombre, newApellido];
+//     const result = await connection.query(query, values);
+//     return result.rows;
+//   } catch (error) {
+//     console.error("Error al buscar el RUC");
+//   }
+// };
 
 module.exports = {
   obtenerClientePorRUC,

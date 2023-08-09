@@ -1,4 +1,4 @@
-const { insertarProducto, consultarCompras } = require("../services/compras.service");
+const { insertarProducto, consultarCompras, comprasPorRuc } = require("../services/compras.service");
 
 const HORAS_DIFERENCIA_UTC = new Date().getTimezoneOffset() * 60000;
 
@@ -24,7 +24,22 @@ const comprasDeHoy = async (req, res) => {
     });
   };
 
+  const comprasRuc = async (req, res) => {
+    const {ruc} = req.query;
+    try {
+      const compras = await comprasPorRuc(ruc);
+      res.status(200).json({
+        resultado: compras,
+      });
+    } catch (error) {
+      console.error('Error al buscar RUC:', error);
+      res.status(500).json({ error: 'Error al buscar RUC' });
+    }
+  };
+  
+
 module.exports = {
+    comprasRuc,
     insertProducto,
     comprasDeHoy
 }

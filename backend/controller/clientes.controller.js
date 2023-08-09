@@ -51,10 +51,10 @@ const insertClient = async (req, res) => {
 };
 
 const searchClient = async (req, res) => {
-const {ruc, nombre, apellido} = req.query;
+const {buscar} = req.query;
 
 try{
-  const resultados = await buscarCliente(ruc, nombre, apellido);
+  const resultados = await buscarCliente(buscar);
   res.status(200).json({
     resultado: resultados
   })

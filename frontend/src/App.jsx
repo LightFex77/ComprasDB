@@ -25,7 +25,7 @@ function App() {
           <Menu />
           <Clientes />
         </Route>
-        <Route exact path="/registro-de-clientes/:ruc">
+        <Route exact path="/compra-de-cliente/:ruc">
           <Menu />
           <ResultClient />
         </Route>
