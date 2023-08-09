@@ -22,31 +22,30 @@ const connection = new pg.Pool({
     password: 'admin123',
     port: 5432,
     database: 'postgres',
-
 });
 
 //Linea de codigo para utilizar los archivos estaticos (css, js) de public
 app.use(express.static(path.join(__dirname, "public")));
 
 //Conseguir el archivo raiz y enviarselo al cliente
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/index.html"));
-    // res.send("hello");
 })
 
-//mensjae de prueba de conexion con exito
 app.listen(3000, async () => {
     await connection.connect()
     console.log('database is running');
     console.log("server listening running", 3000);
 })
 
-//Implementar modulo tipo-producto
+// Implementación del tipo producto
 app.use(tipoProductoRouter);
 
+// Implementación de compras
 app.use(comprasRouter);
 
-//Conseguimos la tabla clientes de la base de datos
+// Implementación de clientes
 app.use(clientesRouter);
 
+// Implementación de empleados
 app.use(empleadosRouter);

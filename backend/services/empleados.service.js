@@ -18,9 +18,9 @@ const obtenerEmpleado = async (email, password) => {
     `,
     [email, password]);
 
-    return empleados.rows[0];
+  return empleados.rows[0];
 };
 
 module.exports = {
-    obtenerEmpleado
+  obtenerEmpleado
 }

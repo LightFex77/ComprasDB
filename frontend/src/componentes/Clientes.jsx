@@ -9,10 +9,11 @@ export const Clientes = () => {
   // const history = useHistory();
   useRedirectToLogin();
 
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [infoClientes, setInfoClientes] = useState(null);
   const history = useHistory();
 
+  // TODO: Cambiar nombre por el on buscar
   const onChangeCliente = async (e) => {
     e.preventDefault();
 
@@ -35,7 +36,7 @@ export const Clientes = () => {
       
       console.log("No se encontraron resultados.");
     } catch (error) {
-      console.error("Error al realizar la consulta:", error);
+      console.error('Error al realizar la consulta:', error);
     }
     
   };
@@ -44,7 +45,7 @@ export const Clientes = () => {
     <div className="container">
       <h1 className="h1Style">Buscar cliente</h1>
       <hr className="hrStyle" />
-      <form className="seacrh-client">
+      <form className="search-client">
         <Input
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -61,7 +62,7 @@ export const Clientes = () => {
             {infoClientes.map((item, index) => (
               <tr key={index} className="row-item" style={{cursor : "pointer"}} onClick={() => selectedCustomer(item.ruc, history)}>
                 <td className="datos-de-compra">
-                  Nombre: <span>{item.nombre}</span>{" "}
+                  Nombre: <span>{item.nombre}</span>{' '}
                   <span>{item.apellido}</span>
                 </td>
                 <td className="datos-de-compra">RUC: {item.ruc}</td>
