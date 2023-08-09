@@ -9,18 +9,20 @@ import { Input } from "./elementos/Input";
 import { useState } from "react";
 //states
 import { useHistory } from "react-router-dom";
-import { useRedirectToLogin } from "../hooks/redirectLogin";
+// import { useRedirectToLogin } from "../hooks/useRedirectToLogin";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
-  const handleClick = async () => {
+  const handleClick = async (e) => {
     const data = {
       email: email,
       password: password,
     };
+
+    e.preventDefault();
 
     try {
       const respuesta = await fetch("http://localhost:3000/login", {
@@ -42,12 +44,10 @@ export const Login = () => {
     }
   };
 
-  useRedirectToLogin();
-
   // cuando se monte el compnente se debe validar que el empleado no exista en el localstorage, sino -> app
 
   return (
-    <form className="login-body">
+    <form className="login-body" onClick={handleClick}>
       <div className="login-container">
         <div className="logo-mugihub">
           <img src={logo} alt="" />
@@ -72,11 +72,7 @@ export const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            className="sign-button"
-            textContent="Entrar"
-            onClick={handleClick}
-          />
+          <Button className="sign-button" textContent="Entrar" />
         </div>
       </div>
     </form>

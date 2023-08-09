@@ -36,7 +36,12 @@ const insertarCliente = async (ruc, ruc_tipo, nombre, apellido, estado) => {
 const buscarCliente = async (buscar) => {
   try{
     if (/\d+/.test(buscar)) {
-      return obtenerClientePorRUC(buscar);
+      const cliente = await obtenerClientePorRUC(buscar);
+      if (cliente) {
+        return [cliente];
+      } else {
+        return []
+      }
     } else {
       const query = `
       SELECT * FROM clientes
@@ -90,27 +95,6 @@ const buscarCliente = async (buscar) => {
 //     console.error("Error al buscar el RUC");
 //   }
 // };
-
-
-const buscarClienteV2 = async (buscar) => {
-  try {
-
-    if (/d+/.test(buscar)) {
-      return obtenerClientePorRUC(buscar);
-    } else {
-      const query = `
-      SELECT * FROM clientes
-      WHERE lower(nombre) = $1 OR
-          lower(apellido) = $1
-    `;
-      const values = [buscar.toLoweCase()];
-      const result = await connection.query(query, values);
-      return result.rows;
-    }
-  } catch (error) {
-    console.error("Error al buscar el RUC");
-  }
-};
 
 module.exports = {
   obtenerClientePorRUC,

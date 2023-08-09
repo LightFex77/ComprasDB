@@ -1,7 +1,7 @@
 import "../styles/sectionComprasHoy.css";
 import { useEffect, useState } from "react";
 import { formatFecha } from "../utils/formatFecha";
-import { useRedirectToLogin } from "../hooks/redirectLogin";
+import { useRedirectToLogin } from "../hooks/useRedirectToLogin";
 
 export const ComprasHoy = () => {
   const [infoCompras, setInfoCompras] = useState(null);

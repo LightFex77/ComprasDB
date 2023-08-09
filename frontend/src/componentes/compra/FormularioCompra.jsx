@@ -7,12 +7,16 @@ import "../../styles/sectionCompra.css";
 import { ModalCompra } from "./ModalCompra";
 // import { ModalCompra } from "./ModalCompra";
 import { useTipoProductos } from "../../hooks/useTipoProductos";
-import { validarFecha, validarSearchRuc, validarTipo, validarValor } from "../../utils/validarCompra";
+import {
+  validarFecha,
+  validarSearchRuc,
+  validarTipo,
+  validarValor,
+} from "../../utils/validarCompra";
 
 export const FormularioCompra = () => {
-
   const history = useHistory();
-  
+
   const [valor, setValor] = useState("");
   const [fechaVencimiento, setFechaVencimiento] = useState(
     new Date().toLocaleDateString("en-CA")
@@ -27,18 +31,15 @@ export const FormularioCompra = () => {
   const [rucInvalido, setRucInvalido] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
-
   const [errorValor, setErrorValor] = useState("");
   const [errorFecha, setErrorFecha] = useState("");
   const [errorTipo, setErrorTipo] = useState("");
   const [errorRucValor, setErrorRucValor] = useState("");
-  
+
   const [empleado, setEmpleado] = useState(null);
 
   useEffect(() => {
-
-
-      const empleadoGuardado = localStorage.getItem("empleado")
+    const empleadoGuardado = localStorage.getItem("empleado");
     if (empleadoGuardado) {
       const empleadoJson = JSON.parse(empleadoGuardado);
       setEmpleado(empleadoJson);
@@ -46,7 +47,7 @@ export const FormularioCompra = () => {
       // devolver al login
       history.push("/login");
     }
-  }, [])
+  }, []);
 
   const listaDeTipos = useTipoProductos();
 
@@ -56,12 +57,11 @@ export const FormularioCompra = () => {
 
     if (!clientCheck) {
       setClientCheck(true);
-      setClientInfo({nombre: "", apellido: ""});
+      setClientInfo({ nombre: "", apellido: "" });
       setClienteId(null);
     } else {
       // Si clientCheck es verdadero, establecemos clienteId en prevClienteId
       setClientCheck(false);
-      
     }
     console.log(clienteId);
   };
@@ -95,7 +95,7 @@ export const FormularioCompra = () => {
         fecha_vencimiento: fechaVencimiento,
         tipo: parseInt(tipoProducto),
         cliente_id: clienteId,
-        empleado_id: empleado.empleado.id
+        empleado_id: empleado.empleado.id,
       };
 
       await fetch("http://localhost:3000/compras", {
@@ -113,7 +113,6 @@ export const FormularioCompra = () => {
   };
 
   const buscarCliente = async (ruc) => {
-
     if (validarSearchRuc(ruc)) {
       const respuestaBd = await fetch(
         "http://localhost:3000/clientes?ruc=" + ruc,
@@ -170,7 +169,9 @@ export const FormularioCompra = () => {
         setModalShow={setModalShow} // Pasar la función al componente ModalCompra
         onClienteCreado={handleClienteCreado}
       />
-      <h1 className="h1Style">Ingresar Compra - {empleado?.empleado?.nombre}</h1>
+      <h1 className="h1Style">
+        Ingresar Compra - {empleado?.empleado?.nombre}
+      </h1>
       <form className="formCompra" id="compras" onSubmit={crearForm}>
         <hr className="hrStyle" />
         <div className="producto-container">

@@ -39,9 +39,14 @@
 }
 .search-client {
   display: flex;
-  position: relative;
-  gap: 1rem;
   flex: 1;
+  gap: 1rem;
+}
+.div-form-search{
+  height: 40px;
+  width: 100%;
+  flex: 1;
+  display: flex;
 }
 .search-client-input {
   flex: 1;
