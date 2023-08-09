@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Main } from "./componentes/Main";
 import { Menu } from "./componentes/Menu";
-import { Login } from "./componentes/login";
+import { Login } from "./componentes/Login";
 import { ComprasHoy } from "./componentes/comprasHoy";
 import { Clientes } from "./componentes/Clientes";
 import { ResultClient } from "./componentes/ResultClient";

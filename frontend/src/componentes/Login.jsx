@@ -7,11 +7,17 @@ import { Input } from "./elementos/Input";
 //Functions
 // import { verifyAccount } from '../utils/login';
 import { useState } from "react";
+import { useEffect } from "react";
 //states
 import { useHistory } from "react-router-dom";
 // import { useRedirectToLogin } from "../hooks/useRedirectToLogin";
 
 export const Login = () => {
+
+  useEffect(() => {
+    localStorage.getItem("empleado") && history.push('/compras')
+  },[])
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();

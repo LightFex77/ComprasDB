@@ -26,7 +26,6 @@ export const Clientes = () => {
       if (resultado) {
         // Si es un objeto, lo convertimos en un array antes de asignarlo a infoClientes
 
-
         if (resultado.length > 0) {
           setInfoClientes(resultado);
           return;
