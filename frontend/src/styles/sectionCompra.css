@@ -48,8 +48,17 @@
   flex: 1;
   display: flex;
 }
+.form-search{
+  display: flex;
+}
 .search-client-input {
   flex: 1;
+}
+.search-client-input input {
+  flex: 1;
+}
+.search-client-button{
+  
 }
 
 .cliente-ruc {

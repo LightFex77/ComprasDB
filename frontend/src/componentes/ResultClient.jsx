@@ -67,7 +67,10 @@ export const ResultClient = () => {
         />
       )}
       {showLiquidar && (
-        <ModalLiquidar setShowLiquidar={setShowLiquidar} style={{ opacity: 1, pointerEvents: "unset" }} />
+        <ModalLiquidar
+          setShowLiquidar={setShowLiquidar}
+          style={{ opacity: 1, pointerEvents: "unset" }}
+        />
       )}
       <h1 className="h1Style">Cliente</h1>
       <hr className="hrStyle" />
@@ -79,7 +82,7 @@ export const ResultClient = () => {
         <Input value={nameClient.ruc} readOnly={true} />
       </section>
       <hr className="hrStyle" />
-      <section className="data-client">
+
         <table className="tabla-principal">
           <thead>
             <tr>
@@ -139,7 +142,7 @@ export const ResultClient = () => {
             )}
           </tbody>
         </table>
-      </section>
+
     </div>
   );
 };

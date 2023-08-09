@@ -47,8 +47,9 @@ export const Clientes = () => {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           placeholder="Nombre, Apellido o RUC"
+          classNameContainer="search-client-input"
         />
-        <Button mode="azul" textContent="Buscar RUC" onClick={onBucarCliente} />
+        <Button mode="azul" textContent="Buscar RUC" onClick={onBucarCliente} className="search-client-button"/>
       </form>
       <table>
         {infoClientes ? (
