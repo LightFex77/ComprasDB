@@ -47,14 +47,12 @@ export const Login = () => {
   // cuando se monte el compnente se debe validar que el empleado no exista en el localstorage, sino -> app
 
   return (
-    <form className="login-body" onClick={handleClick}>
+    <form className="login-body" onSubmit={handleClick}>
       <div className="login-container">
         <div className="logo-mugihub">
           <img src={logo} alt="" />
         </div>
         <div className="login-access">
-          {" "}
-          {/* FORM !!!*/}
           <h1>Login</h1>
           <hr />
           <Input
