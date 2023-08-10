@@ -26,7 +26,7 @@ export const ModalPagar = ({ style, dataClient, setShowPagar }) => {
           "Content-Type": "application/json",
         },
       });
-
+      alert('¡Pago completado con exito!');
       setShowPagar(false);
     } catch (error) {
       console.error("Error al pagar", error);
