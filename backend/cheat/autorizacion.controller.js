@@ -11,7 +11,7 @@ const loginEmployee = async (req, res) => {
         empleadoRol: empleado.rol,
         empleadoEmail: empleado.email,
       },
-      "firma-secreta-de-andres",
+      process.env.JWT_FIRMA_SECRETA,
       {
         expiresIn: "24h"
       }
@@ -32,7 +32,7 @@ const verificarEmpleado = async (req, res, next) => {
   const token = req.headers.authorization;
 
   try {
-      jwt.verify(token, "firma-secreta-de-andres");
+      jwt.verify(token, process.env.JWT_FIRMA_SECRETA);
     
       next();
   } catch (error) {

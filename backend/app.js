@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const app = express();
 const path = require("path");
@@ -9,7 +10,7 @@ const empleadosRouter = require("./router/empleados.router");
 const connection = require("./db/connectionDb");
 
 const expressConfiguracionJson = express.json();
-const corsConfiguracion = cors("http://localhost:5173")
+const corsConfiguracion = cors(process.env.FRONTEND_URL)
 
 
 app.use(corsConfiguracion)
