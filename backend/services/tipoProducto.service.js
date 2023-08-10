@@ -1,13 +1,4 @@
-const pg = require("pg");
-
-//Conectar a la base de datos
-const connection = new pg.Pool({
-  host: "localhost",
-  user: "postgres",
-  password: "admin123",
-  port: 5432,
-  database: "postgres",
-});
+const connection = require("../db/connectionDb");
 
 const obtenerTipoProducto = async () => {
   const tipoProductos = await connection.query(`

@@ -1,12 +1,4 @@
-const pg = require("pg");
-
-const connection = new pg.Pool({
-  host: "localhost",
-  user: "postgres",
-  password: "admin123",
-  port: 5432,
-  database: "postgres",
-});
+const connection = require("../db/connectionDb");
 
 const obtenerClientePorRUC = async (ruc) => {
   const clientes = await connection.query(

@@ -1,12 +1,12 @@
 const express = require("express")
 const app = express();
 const path = require("path");
-const pg = require('pg');
 const cors = require('cors');
 const tipoProductoRouter = require("./router/tipoProducto.router");
 const clientesRouter = require("./router/clientes.router");
 const comprasRouter = require("./router/compras.router");
 const empleadosRouter = require("./router/empleados.router");
+const connection = require("./db/connectionDb");
 
 const expressConfiguracionJson = express.json();
 const corsConfiguracion = cors("http://localhost:5173")
@@ -16,13 +16,7 @@ app.use(corsConfiguracion)
 app.use(expressConfiguracionJson)
 
 //Conectar a la base de datos
-const connection = new pg.Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: 'admin123',
-    port: 5432,
-    database: 'postgres',
-});
+
 
 //Linea de codigo para utilizar los archivos estaticos (css, js) de public
 app.use(express.static(path.join(__dirname, "public")));
