@@ -194,6 +194,8 @@ export const FormularioCompra = () => {
               value={valor}
               error={errorValor}
               onChange={(e) => setValor(e.target.value)}
+              classNameContainer="search-client-input"
+              clase="search-client-input input"
               onBlur={() => {
                 const esValorValido = validarValor(valor);
                 if (!esValorValido) setErrorValor("Valor invalido");
@@ -209,6 +211,8 @@ export const FormularioCompra = () => {
               value={fechaVencimiento}
               error={errorFecha}
               onChange={(e) => setFechaVencimiento(e.target.value)}
+              clase="search-client-input input"
+              classNameContainer="search-client-input"
             />
           </div>
         </div>

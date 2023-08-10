@@ -79,7 +79,8 @@ const comprasPorRuc = async (ruc) => {
     cl.apellido as cliente_apellido,
     cl.ruc,
     e.nombre as empleado_nombre,
-    e.apellido as empleado_apellido
+    e.apellido as empleado_apellido,
+    COALESCE((SELECT SUM(a.valor) FROM public.abonos AS a WHERE a.compra_id = c.id), 0) AS valor_pagado
 
     FROM compras as c
     INNER JOIN clientes as cl
@@ -90,15 +91,18 @@ const comprasPorRuc = async (ruc) => {
 
     INNER JOIN tipo_producto as tp
     ON c.tipo = tp.id
-    WHERE cl.ruc = $1;
+    WHERE cl.ruc = $1
+
+    ORDER BY c.fecha_creacion desc;
     `;
-    // INNER JOIN public.clientes as cl
-    // ON c.cliente_id = cl.id
-    // const values = [id];
+    
     const result = await connection.query(query, values);
-    return result.rows;
+    return result.rows.map(m => {
+      m.valor_faltante = m.valor - m.valor_pagado
+      return m;
+    })
   } catch (error) {
-    console.error("Error al buscar RUC");
+    console.error("Error al buscar RUC", error);
   }
 };
 
@@ -121,24 +125,12 @@ const insertarAbono = async (
 };
 
 const actualizarCompra = async (compra_id, estado, dias) => {
-  const getDateQuery = `
-    SELECT fecha_vencimiento
-    FROM public.compras
-    WHERE id = $1
-  `;
-  const valuesDateQuery = [compra_id];
-  const dueDate = await connection.query(getDateQuery, valuesDateQuery);
-
-  const fechaVencimientoString = dueDate.rows[0].fecha_vencimiento;
-  const fechaVencimiento = new Date(fechaVencimientoString);
-  fechaVencimiento.setDate(fechaVencimiento.getDate() + dias);
-
   const updateQuery = `
-    UPDATE public.compras
-    SET fecha_vencimiento=$2, estado=$3
-    WHERE id = $1
+  UPDATE public.compras AS c
+  SET fecha_vencimiento = c.fecha_vencimiento + $2::integer, estado = $3
+  WHERE id = $1;
     `;
-  const valuesUpdateQuery = [compra_id, fechaVencimiento, estado];
+  const valuesUpdateQuery = [compra_id, dias, estado];
   const update = await connection.query(updateQuery, valuesUpdateQuery);
 
   return update.rows;

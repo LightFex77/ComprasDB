@@ -90,6 +90,8 @@ export const ResultClient = () => {
               <th className="informacion-de-datos">Tipo producto</th>
               <th className="informacion-de-datos">Valor del producto</th>
               <th className="informacion-de-datos">Fecha de vencimiento</th>
+              <th className="informacion-de-datos">Valor Pagado</th>
+              <th className="informacion-de-datos">Valor Faltante</th>
               <th className="informacion-de-datos">Empleado</th>
               <th className="informacion-de-datos"></th>
             </tr>
@@ -104,9 +106,11 @@ export const ResultClient = () => {
                   <td className="datos-de-compra">
                     {formatFecha(item.fecha_vencimiento)}
                   </td>
+                  <td className="datos-de-compra">{item.valor_pagado}</td>
+                  <td className="datos-de-compra">{item.valor_faltante}</td>
                   <td className="datos-de-compra">
-                    <span>{item.nombre_empleado}</span>{" "}
-                    <span>{item.apellido_empleado}</span>
+                    <span>{item.empleado_nombre}</span>{" "}
+                    <span>{item.empleadoapellido}</span>
                   </td>
                   <td className="datos-de-compra">
                     {item.estado === "ven" ? (
