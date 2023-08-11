@@ -79,8 +79,15 @@ export const ResultClient = () => {
         <Input
           value={`${nameClient.nombre} ${nameClient.apellido}`}
           readOnly={true}
+          classNameContainer="result-nombres"
+          labelText="Nombre"
         />
-        <Input value={nameClient.ruc} readOnly={true} />
+        <Input
+          value={nameClient.ruc}
+          readOnly={true}
+          classNameContainer="result-nombres"
+          labelText="RUC"
+        />
       </section>
       <hr className="hrStyle" />
 
@@ -101,7 +108,9 @@ export const ResultClient = () => {
           {dataClient ? (
             dataClient.resultado.map((item, index) => (
               <tr className={`row-item estado-de-${item.estado}`} key={index}>
-                <td className="datos-de-compra">{estadosCompra(item.estado)}</td>
+                <td className="datos-de-compra">
+                  {estadosCompra(item.estado)}
+                </td>
                 <td className="datos-de-compra">{item.producto}</td>
                 <td className="datos-de-compra">{item.valor}</td>
                 <td className="datos-de-compra">

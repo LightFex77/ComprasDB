@@ -53,6 +53,19 @@ background-color: #E0E7FD;
 .estado-de-pen::after{
 background-color: #D9F9E6;
 }
+.section-nombre{
+    display: flex;
+    width: 50rem;
+    gap: 2rem;
+}
+.result-nombres{
+flex: 1;
+gap: 10px;
+}
+.result-nombres input{
+    display: flex;
+    background-color: #6586F533;
+}
 /* .nombre-c-e{
     background-color: #FFFF;
 }
