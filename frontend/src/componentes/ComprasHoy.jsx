@@ -38,19 +38,26 @@ export const ComprasHoy = () => {
             <tr className="row-item" key={item.id}>
               <td className="datos-de-compra">{item.texto}</td>
               <td className="datos-de-compra">{item.valor}</td>
-              <td className="datos-de-compra">{formatFecha(item.fecha_vencimiento)}</td>
-              <td className="datos-de-compra">{item.nombre_cliente}</td>
               <td className="datos-de-compra">
-                <span>{item.nombre_empleado}</span>{" "}
-                <span>{item.apellido_empleado}</span>
+                {formatFecha(item.fecha_vencimiento)}
+              </td>
+              <td className="datos-de-compra">
+                {item.nombre_cliente && item.apellido_cliente ? (
+                  <span>
+                    {item.nombre_cliente} {item.apellido_cliente}
+                  </span>
+                ) : (
+                  <span style={{color: "white", background: "black", padding: "5px", borderRadius : "5px"}}>Cliente Anónimo</span>
+                )}
+              </td>
+              <td className="datos-de-compra">
+                <span>{item.nombre_empleado} {item.apellido_empleado}</span>
               </td>
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan={5}>
-                Cargando...
-            </td>
+            <td colSpan={5}>Cargando...</td>
           </tr>
         )}
       </table>

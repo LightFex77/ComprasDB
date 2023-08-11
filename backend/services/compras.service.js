@@ -33,11 +33,11 @@ const consultarCompras = async () => {
     `
      SELECT
      c.id,
-     cl.nombre as cliente_nombre,
-     cl.apellido as cliente_apellido,
+     cl.nombre as nombre_cliente,
+     cl.apellido as apellido_cliente,
      cl.ruc,
-     e.nombre as empleado_nombre,
-     e.apellido as empleado_apellido,
+     e.nombre as nombre_empleado,
+     e.apellido as apellido_empleado,
      p.texto,
      c.valor,
      c.fecha_vencimiento
