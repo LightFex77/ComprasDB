@@ -105,6 +105,7 @@ export const FormularioCompra = () => {
           "Content-Type": "application/json",
         },
       });
+      alert('¡La compra se creo con exito!')
     } else {
       if (!esValorValido) setErrorValor("Valor invalido");
       if (!esFechaValido) setErrorFecha("Fecha no valida");
