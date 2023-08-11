@@ -5,6 +5,7 @@ import { Button } from "../componentes/elementos/Button";
 import { formatFecha } from "../utils/formatFecha";
 import { ModalPagar } from "./cliente/ModalPagar";
 import { ModalLiquidar } from "./cliente/ModalLiquidar";
+import { estadosCompra } from "../utils/estadosCompra";
 
 export const ResultClient = () => {
   const { ruc } = useParams();
@@ -83,70 +84,69 @@ export const ResultClient = () => {
       </section>
       <hr className="hrStyle" />
 
-        <table className="tabla-principal">
-          <thead>
-            <tr>
-              <th className="informacion-de-datos">Estado</th>
-              <th className="informacion-de-datos">Tipo producto</th>
-              <th className="informacion-de-datos">Valor del producto</th>
-              <th className="informacion-de-datos">Fecha de vencimiento</th>
-              <th className="informacion-de-datos">Valor Pagado</th>
-              <th className="informacion-de-datos">Valor Faltante</th>
-              <th className="informacion-de-datos">Empleado</th>
-              <th className="informacion-de-datos"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataClient ? (
-              dataClient.resultado.map((item, index) => (
-                <tr className="row-item" key={index}>
-                  <td className="datos-de-compra">{item.estado}</td>
-                  <td className="datos-de-compra">{item.producto}</td>
-                  <td className="datos-de-compra">{item.valor}</td>
-                  <td className="datos-de-compra">
-                    {formatFecha(item.fecha_vencimiento)}
-                  </td>
-                  <td className="datos-de-compra">{item.valor_pagado}</td>
-                  <td className="datos-de-compra">{item.valor_faltante}</td>
-                  <td className="datos-de-compra">
-                    <span>{item.empleado_nombre}</span>{" "}
-                    <span>{item.empleadoapellido}</span>
-                  </td>
-                  <td className="datos-de-compra">
-                    {item.estado === "ven" ? (
-                      <>
-                        <Button
-                          mode="gris"
-                          textContent="Pagar"
-                          disabled={true}
-                        />
-                        <Button
-                          mode="gris"
-                          textContent="Liquidar"
-                          disabled={true}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <Button textContent="Pagar" onClick={onClickPagar} />
-                        <Button
-                          mode="azul"
-                          textContent="Liquidar"
-                          onClick={onClickLiquidar}
-                        />
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5}>Cargando...</td>
+      <table className="tabla-principal">
+        <thead>
+          <tr>
+            <th className="informacion-de-datos">Estado</th>
+            <th className="informacion-de-datos">Tipo producto</th>
+            <th className="informacion-de-datos">Valor del producto</th>
+            <th className="informacion-de-datos">Fecha de vencimiento</th>
+            <th className="informacion-de-datos">Valor Pagado</th>
+            <th className="informacion-de-datos">Valor Faltante</th>
+            <th className="informacion-de-datos">Empleado</th>
+            <th className="informacion-de-datos"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {dataClient ? (
+            dataClient.resultado.map((item, index) => (
+              <tr className="row-item" key={index}>
+                <td className="datos-de-compra">{estadosCompra(item.estado)}</td>
+                <td className="datos-de-compra">{item.producto}</td>
+                <td className="datos-de-compra">{item.valor}</td>
+                <td className="datos-de-compra">
+                  {formatFecha(item.fecha_vencimiento)}
+                </td>
+                <td className="datos-de-compra">{item.valor_pagado}</td>
+                <td className="datos-de-compra">{item.valor_faltante}</td>
+                <td className="datos-de-compra">
+                  <span>{item.empleado_nombre}</span>{" "}
+                  <span>{item.empleado_apellido}</span>
+                </td>
+                <td className="datos-de-compra">
+                  {item.estado === "ven" ? (
+                    <>
+                      <Button
+                        mode="gris"
+                        textContent="Pagar"
+                        disabled={false} // Cambiado a false
+                      />
+                      <Button
+                        mode="gris"
+                        textContent="Liquidar"
+                        disabled={false} // Cambiado a false
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Button textContent="Pagar" onClick={onClickPagar} />
+                      <Button
+                        mode="azul"
+                        textContent="Liquidar"
+                        onClick={onClickLiquidar}
+                      />
+                    </>
+                  )}
+                </td>
               </tr>
-            )}
-          </tbody>
-        </table>
-
+            ))
+          ) : (
+            <tr>
+              <td colSpan={5}>Cargando...</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

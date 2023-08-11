@@ -28,6 +28,8 @@ export const ModalPagar = ({ style, dataClient, setShowPagar }) => {
       });
       alert('¡Pago completado con exito!');
       setShowPagar(false);
+
+      window.location.reload();
     } catch (error) {
       console.error("Error al pagar", error);
     }
@@ -36,7 +38,7 @@ export const ModalPagar = ({ style, dataClient, setShowPagar }) => {
     <section className="modal" style={style}>
       <div className="modal-content">
         <div className="exit-button-container">
-        <Button textContent="X" className="exit-button" mode="azul" onClick={() => setShowPagar(false)}/>
+          <Button textContent="X" className="exit-button" mode="azul" onClick={() => setShowPagar(false)}/>
         </div>
         <img src={logo} width="40px" height="40px" />
         <h1 className="h1Style">Pagar</h1>
