@@ -100,7 +100,7 @@ export const ResultClient = () => {
         <tbody>
           {dataClient ? (
             dataClient.resultado.map((item, index) => (
-              <tr className="row-item" key={index}>
+              <tr className={`row-item estado-de-${item.estado}`} key={index}>
                 <td className="datos-de-compra">{estadosCompra(item.estado)}</td>
                 <td className="datos-de-compra">{item.producto}</td>
                 <td className="datos-de-compra">{item.valor}</td>

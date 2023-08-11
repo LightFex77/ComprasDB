@@ -21,7 +21,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #E0E7FD;
+    background-color: #E0E7FD;
     border-radius: 5px;
     z-index: 1;
 }
@@ -40,6 +40,18 @@
     width: 100px;
     padding: 1rem;
     font-weight: bold;
+}
+.estado-de-act::after{
+    background-color: #E0E7FD;
+}
+.estado-de-ven::after{
+background-color: #F9E3E2;
+}
+.estado-de-pgd::after{
+background-color: #E0E7FD;
+}
+.estado-de-pen::after{
+background-color: #D9F9E6;
 }
 /* .nombre-c-e{
     background-color: #FFFF;
