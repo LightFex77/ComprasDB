@@ -32,6 +32,15 @@
     text-align: center;
     z-index: 2;
 }
+.botones-de-pago{
+    display: flex;
+    gap: 5px;
+}
+.botones-de-pago button {
+    width: 100px;
+    padding: 1rem;
+    font-weight: bold;
+}
 /* .nombre-c-e{
     background-color: #FFFF;
 }

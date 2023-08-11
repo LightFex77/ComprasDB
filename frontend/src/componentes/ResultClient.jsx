@@ -113,7 +113,7 @@ export const ResultClient = () => {
                   <span>{item.empleado_nombre}</span>{" "}
                   <span>{item.empleado_apellido}</span>
                 </td>
-                <td className="datos-de-compra">
+                <td className="datos-de-compra botones-de-pago">
                   {item.estado === "ven" ? (
                     <>
                       <Button
